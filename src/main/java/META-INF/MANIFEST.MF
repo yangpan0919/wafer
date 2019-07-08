@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Class-Path: slf4j-api-1.7.26.jar spring-jcl-5.1.8.RELEASE.jar log4j-1.
+ 2.17.jar spring-beans-5.1.8.RELEASE.jar spring-expression-5.1.8.RELEA
+ SE.jar spring-boot-autoconfigure-2.1.6.RELEASE.jar snakeyaml-1.23.jar
+  spring-aop-5.1.8.RELEASE.jar org.apache.commons.io-2.4.jar logback-c
+ ore-1.2.3.jar logback-classic-1.2.3.jar spring-boot-2.1.6.RELEASE.jar
+  commons-lang3-3.8.1.jar jul-to-slf4j-1.7.26.jar spring-boot-starter-
+ 2.1.6.RELEASE.jar spring-context-5.1.8.RELEASE.jar javax.annotation-a
+ pi-1.3.2.jar spring-core-5.1.8.RELEASE.jar log4j-to-slf4j-2.11.2.jar 
+ log4j-api-2.11.2.jar commons-io-2.4.jar springboot-javafx-support-2.1
+ .6.jar spring-boot-starter-logging-2.1.6.RELEASE.jar
+Main-Class: example.Main
+

@@ -1,0 +1,33 @@
+<component name="ArtifactManager">
+  <artifact name="wafer:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/wafer_jar</output-path>
+    <root id="root">
+      <element id="archive" name="wafer.jar">
+        <element id="module-output" name="wafer" />
+      </element>
+      <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.26" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.1.8.RELEASE" />
+      <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.1.8.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.1.8.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.1.6.RELEASE" />
+      <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.23" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.1.8.RELEASE" />
+      <element id="library" level="project" name="Maven: org.apache.directory.studio:org.apache.commons.io:2.4" />
+      <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.2.3" />
+      <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.3" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:2.1.6.RELEASE" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.8.1" />
+      <element id="library" level="project" name="Maven: org.slf4j:jul-to-slf4j:1.7.26" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:2.1.6.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-context:5.1.8.RELEASE" />
+      <element id="library" level="project" name="Maven: javax.annotation:javax.annotation-api:1.3.2" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-core:5.1.8.RELEASE" />
+      <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-to-slf4j:2.11.2" />
+      <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.11.2" />
+      <element id="library" level="project" name="Maven: commons-io:commons-io:2.4" />
+      <element id="library" level="project" name="Maven: de.roskenet:springboot-javafx-support:2.1.6" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-logging:2.1.6.RELEASE" />
+    </root>
+  </artifact>
+</component>
