@@ -6,3 +6,4 @@ javafx:
     stage:
         resizable: false
     title: waferParse
+    appicons: /logoTaiZhi.png
