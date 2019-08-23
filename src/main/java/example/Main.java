@@ -10,6 +10,6 @@ import java.util.Arrays;
 public class Main extends AbstractJavaFxApplicationSupport {
 
     public static void main(String[] args) {
-        launch(Main.class, HelloworldView.class, args);
+        launch(Main.class, HelloworldView.class, new SplashScreenCofig(), args);
     }
 }

@@ -27,8 +27,8 @@ public class HitachiWaferUtil {
     @Autowired
     HelloworldController helloworldController;
 
-    static String waferMappingPath = "D:\\WAFERMAPPING";
-    static String waferSavePath = "D:\\WAFERMAPPING_RESULT";
+    //    static String waferMappingPath = "D:\\WAFERMAPPING";
+//    static String waferSavePath = "D:\\WAFERMAPPING_RESULT";
     private static final Logger logger = Logger.getLogger(HitachiWaferUtil.class);
     private static Properties prop;
 
@@ -75,7 +75,8 @@ public class HitachiWaferUtil {
             boolean multipleMap = false;  //一个文件是否包含多个Map
             List<List<String>> muliList = new ArrayList<>();
             List<String> outName = new ArrayList<>();
-            if (fileName.toLowerCase().endsWith(".xml")) {
+
+            if (fileName.toLowerCase().endsWith(".xml") || fileName.toLowerCase().endsWith(".txt")) {
                 while ((tmpString = br.readLine()) != null) {
                     if (tmpString.contains("<Maps>") || tmpString.contains("<SubstrateMaps>")) {
                         multipleMap = true;
@@ -108,6 +109,9 @@ public class HitachiWaferUtil {
                             } else if (tmpString.contains("SubstrateId")) {
                                 String temp = tmpString.substring(tmpString.indexOf("SubstrateId") + 11);
                                 String temp1 = temp.substring(temp.indexOf("\"") + 1);
+                                if (temp1.indexOf("\"") == 0) {
+                                    temp1 = temp1.substring(1);
+                                }
                                 firstNameTemp = temp1.substring(0, temp1.indexOf("\"")) + fileName.substring(fileName.lastIndexOf("."));
                             }
                             if (tmpString.contains(">")) {
@@ -133,6 +137,9 @@ public class HitachiWaferUtil {
                         } else if ((!isWaferId) && tmpString.contains("SubstrateId")) {
                             String temp = tmpString.substring(tmpString.indexOf("SubstrateId") + 11);
                             String temp1 = temp.substring(temp.indexOf("\"") + 1);
+                            if (temp1.indexOf("\"") == 0) {
+                                temp1 = temp1.substring(1);
+                            }
                             firstNameTemp = temp1.substring(0, temp1.indexOf("\"")) + fileName.substring(fileName.lastIndexOf("."));
                             outName.add(firstNameTemp);
                             muliList.add(new ArrayList<>());
@@ -160,6 +167,7 @@ public class HitachiWaferUtil {
                 }
 
             }
+
             if (multipleMap) {
                 for (int i = 0; i < muliList.size(); i++) {
                     String outPath = replace.substring(0, replace.lastIndexOf(File.separator) + 1) + outName.get(i);
@@ -410,6 +418,10 @@ public class HitachiWaferUtil {
                     int index1 = s.indexOf("BinCode=\"");
                     String substring = s.substring(index1 + 9);
                     String substring1 = substring.substring(0, substring.indexOf("\""));
+                    if (substring1.indexOf("\"") == 0) {//  为了处理第一个还是"的   例："1"" BinQuality=""Pass"" BinDescription=""Normal Pass"" BinCount=""1316""/>"
+                        substring = substring.substring(1);
+                        substring1 = substring.substring(0, substring.indexOf("\""));
+                    }
                     if (firstStr.substring(startIndex + 14, firstStr.length() - 9).contains(" ") && (!substring1.contains(" "))) {
                         noSpace = true;
                     }
@@ -780,37 +792,37 @@ public class HitachiWaferUtil {
         return result;
     }
 
-    private String[] getPath(String waferId, String deviceCode) {
-        String lot = waferId.split("-")[0];
-        String path = waferMappingPath + "\\" + deviceCode + "\\" + lot + "\\" + waferId;
-        String savePath = waferSavePath + "\\" + deviceCode + "\\" + lot + "\\" + waferId;
-        String[] arr = new String[]{path, savePath};
-
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\tmb\\NF10A-08.tmb";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\out\\H00H37-08.out";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\asc\\HYMJC-01.asc";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\cp1\\RCSYN-18.CP1";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\dat\\SI11494-03.dat";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\EMT\\P1B122-01.EMT";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\ETC\\BPR296-18.ETC";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\smic\\SL1460-08.smic";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\tma\\28-20111-0-01.tma";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\tmc\\862368-18.tmc";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\wfp\\S13195-18.wfp";
-//         path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\WIN\\A738190-18.WIN";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\XML\\CP1042857-18.XML";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\UMC\\S1LP6-08.UMC";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\UTR\\P1M742-08.UTR";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\1.txt";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\2.txt";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\3.txt";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\4.txt";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\5.txt";
-//         path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\6.txt";
-//        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\7.txt";
-        logger.info("waferpath：" + path);
-        return arr;
-    }
+//    private String[] getPath(String waferId, String deviceCode) {
+//        String lot = waferId.split("-")[0];
+//        String path = waferMappingPath + "\\" + deviceCode + "\\" + lot + "\\" + waferId;
+//        String savePath = waferSavePath + "\\" + deviceCode + "\\" + lot + "\\" + waferId;
+//        String[] arr = new String[]{path, savePath};
+//
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\tmb\\NF10A-08.tmb";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\out\\H00H37-08.out";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\asc\\HYMJC-01.asc";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\cp1\\RCSYN-18.CP1";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\dat\\SI11494-03.dat";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\EMT\\P1B122-01.EMT";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\ETC\\BPR296-18.ETC";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\smic\\SL1460-08.smic";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\tma\\28-20111-0-01.tma";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\tmc\\862368-18.tmc";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\wfp\\S13195-18.wfp";
+////         path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\WIN\\A738190-18.WIN";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\XML\\CP1042857-18.XML";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\UMC\\S1LP6-08.UMC";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\UTR\\P1M742-08.UTR";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\1.txt";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\2.txt";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\3.txt";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\4.txt";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\5.txt";
+////         path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\6.txt";
+////        path = "C:\\Users\\86180\\Desktop\\新建文件夹 (2)\\不同格式的MAP\\txt\\7.txt";
+//        logger.info("waferpath：" + path);
+//        return arr;
+//    }
 
     private static void loadBinConfig() {
         FileInputStream fileInputStream = null;
