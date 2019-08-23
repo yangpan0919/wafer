@@ -417,11 +417,10 @@ public class HitachiWaferUtil {
                 if (s.contains("<Bin ")) {
                     int index1 = s.indexOf("BinCode=\"");
                     String substring = s.substring(index1 + 9);
-                    String substring1 = substring.substring(0, substring.indexOf("\""));
-                    if (substring1.indexOf("\"") == 0) {//  为了处理第一个还是"的   例："1"" BinQuality=""Pass"" BinDescription=""Normal Pass"" BinCount=""1316""/>"
+                    if (substring.indexOf("\"") == 0) {//  为了处理第一个还是"的   例："1"" BinQuality=""Pass"" BinDescription=""Normal Pass"" BinCount=""1316""/>"
                         substring = substring.substring(1);
-                        substring1 = substring.substring(0, substring.indexOf("\""));
                     }
+                    String substring1 = substring.substring(0, substring.indexOf("\""));
                     if (firstStr.substring(startIndex + 14, firstStr.length() - 9).contains(" ") && (!substring1.contains(" "))) {
                         noSpace = true;
                     }
