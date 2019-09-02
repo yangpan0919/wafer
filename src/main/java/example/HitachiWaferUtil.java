@@ -517,6 +517,8 @@ public class HitachiWaferUtil {
             }
         }
         Set<Integer> set = new HashSet<>();
+        Set<Integer> set2 = new HashSet<>();
+        Set<Integer> set3 = new HashSet<>();
         for (int i = (index - count + 1); i <= index; i++) {
             String s = list.get(i);
             if (!s.startsWith(" ")) {
@@ -524,9 +526,25 @@ public class HitachiWaferUtil {
                 if (index1 > 0) {
                     set.add(index1);
                 }
+                String substring = s.substring(index1 + 1);
+                int index2 = substring.indexOf(" ");
+                if (index2 > 0) {
+                    set2.add(index2);
+                    substring = substring.substring(index2 + 1);
+                    int index3 = substring.indexOf(" ");
+                    if (index3 > 0) {
+                        set3.add(index3);
+                    }
+                }
+
             }
             resultList.add(list.get(i));
         }
+        if (set.size() == 1 && set2.size() == 1 && set3.size() == 1) {//__ __ 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 __
+            set = new HashSet<>();                                    //** FF11100FF11   除去空格前无效部分
+            set.add(-1);
+        }
+
         if (set.size() == 1) {
             for (Integer integer : set) {
                 set = new HashSet<>();
