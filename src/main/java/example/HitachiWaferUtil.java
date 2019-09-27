@@ -18,9 +18,6 @@ import java.io.*;
 import java.time.Instant;
 import java.util.*;
 
-/**
- * @author luosy
- */
 @Component
 public class HitachiWaferUtil {
 
@@ -52,7 +49,7 @@ public class HitachiWaferUtil {
 
     public void waferOneFile(File file, String angle, String text, boolean isFirst) {
         String fileName = file.getName();
-        if (fileName.endsWith(".API") || fileName.endsWith(".api")) {
+        if (fileName.endsWith(".API") || fileName.endsWith(".api") || fileName.endsWith(".xls")) {
             return;
         }
         String path = file.getPath();
@@ -342,14 +339,12 @@ public class HitachiWaferUtil {
             int[] ints = numHandle(list, index, count, num, indexList);
             if (ints[0] < (count / 2)) {
                 flag = false;
+                if (ints[1] != ints[2] || ints[0] != ints[3]) {
+                    num--;  //直到截止列，如果截止列全是空格，则也移除
+                }
             }
             if (num > 10) {  //有可能全是数字，没有序号
                 num = 0;
-                flag = false;
-            }
-            long l1 = Instant.now().toEpochMilli();
-            if (l1 - l > 20000L) {
-                logger.error("超时了");
                 flag = false;
             }
         }
@@ -743,24 +738,44 @@ public class HitachiWaferUtil {
         }
     }
 
+    /**
+     * 验证序号验证前几行
+     *
+     * @param list
+     * @param index
+     * @param count
+     * @param num
+     * @param indexList
+     * @return
+     */
     private int[] numHandle(List<String> list, int index, int count, int num, List<Integer> indexList) {
         int sucess = 0;
         int fail = 0;
+        int spaceNum = 0;//表示空格数量
+        int temp = index - count + 1;
+
         List<Integer> tempList = new ArrayList<>();
         for (int i = (index - count + 1); i <= index; i++) {
             String s = list.get(i);
+            String substring = s.substring(num - 1, num);
             try {
-                Integer.parseInt(s.substring(num - 1, num));
+                Integer.parseInt(substring);
                 sucess++;
+                if (temp == i) {
+                    temp++;
+                }
             } catch (NumberFormatException e) {
                 fail++;
                 tempList.add(i);
+                if (substring.equals(" ")) {
+                    spaceNum++;
+                }
             }
         }
         if (sucess > (count / 2)) {
             indexList.addAll(tempList);  //成功的过多，怎加入indezList中，用以记录处理上面几行不需要的行
         }
-        return new int[]{sucess, fail};
+        return new int[]{sucess, fail, spaceNum, temp - (index - count + 1)};
 
     }
 
