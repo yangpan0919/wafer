@@ -393,14 +393,7 @@ public class HitachiWaferUtil {
         indexList = new ArrayList<>();
         temp = 0;
         flag = false;
-        /**
-         *       111111111111111111111111111111111111111111111111111111111100
-         *       555555554444444444333333333322222222221111111111000000000099
-         *       765432109876543210987654321098765432109876543210987654321098
-         *       ------------------------------------------------------------
-         *                       MMMMMMMMMMMMMMMMMM
-         *                       移除 -------------------及以上部分
-         */
+
         int charNum = 1;
         int startIndex = 0;
         boolean noSpace = false;  //xml 是否需要移除空格
@@ -452,6 +445,69 @@ public class HitachiWaferUtil {
         }
         //bincode解析
 
+        /**
+         * Y↓X→-1  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76
+         *    -1|
+         *     0|
+         *     1|
+         *     2|                                                                                                                                                                                                                       A  A  A  C  C  C
+         *     3|                                                                                                                                                                                                     A  A  B  C  P  C  C  C  C  C  C  P
+         *     4|                                                                                                                                                                                         A  B  C  C  C  C  C  C  C  C  C  C  C  C  C  C
+         *     5|                                                                                                                                                                             A  A  C  C  C  C  C  E  C  T  C  1  1  1  C  1  C  1  C  1
+         *     6|                                                                                                                                                                    A  B  B  C  C  C  C  C  C  C  1  1  C  T  1  T  1  1  1  1  1  C  K
+         *     7|                                                                                                                                                              B  B  C  C  C  C  C  K  E  C  C  1  1  C  C  C  1  1  1  1  T  K  1  1  C
+         *     8|                                                                                                                                                     A  B  B  C  C  C  C  C  1  T  1  C  1  1  T  1  T  1  1  C  B  1  1  1  1  1  C  T
+         *     9|                                                                                                                                               A  B  C  C  C  C  1  C  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  C  1  1  C
+         *    10|                                                                                                                                         A  B  C  C  C  C
+         *    移除上面的序号
+         */
+        int k = index - count + 1;
+        for (int i = k; i <= (k + 2); i++) {
+            String s = list.get(i);
+            String[] s1 = s.split(" ");
+            List<String> tempList = new ArrayList<>();
+            for (String s2 : s1) {
+                String trim = s2.trim();
+                if (!StringUtils.isEmpty(trim)) {
+                    tempList.add(trim);
+                }
+            }
+            int size = 10;
+            if (tempList.size() < size) {
+                continue;
+            }
+            boolean delete = true;
+
+            for (int i1 = 1; i1 < size; i1++) {
+                String trim = tempList.get(i1);
+                try {
+                    int i2 = Integer.parseInt(trim);
+                    if (i2 != (Integer.parseInt(tempList.get(i1 - 1)) + 1)) {
+                        delete = false;
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    delete = false;
+                    break;
+                }
+
+
+            }
+            if (delete) {
+                count = count - (i - k + 1);
+                break;
+            }
+
+        }
+
+        /**
+         *       111111111111111111111111111111111111111111111111111111111100
+         *       555555554444444444333333333322222222221111111111000000000099
+         *       765432109876543210987654321098765432109876543210987654321098
+         *       ------------------------------------------------------------
+         *                       MMMMMMMMMMMMMMMMMM
+         *                       移除 -------------------及以上部分
+         */
 
         for (int i = (index - count + 1); i <= index; i++) {
             String s = list.get(i);
